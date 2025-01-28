@@ -1,0 +1,41 @@
+{
+  "name": "12_calculator",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
+    "prepare": "husky",
+    "reboot": "rm -rf ./node_modules/ ./package-lock.json && npm install",
+    "lint": "eslint . --cache --fix",
+    "pretest": "npm run lint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "onchange": "^7.1.0",
+    "prettier": "3.4.2",
+    "validate-branch-name": "^1.3.1",
+    "vite": "^6.0.3"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  },
+  "validate-branch-name": {
+    "pattern": "^(master|main|development){1}$|^(feature|fix|test|chore|refactor|ci)/.+$",
+    "errorMsg": "Make sure to give a valid branch name."
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3"
+  }
+}
