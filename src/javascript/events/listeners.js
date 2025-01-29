@@ -9,12 +9,12 @@ function waitForLoadingOfDomContent() {
   document.addEventListener("DOMContentLoaded", handleLoadingOfDomContent);
 }
 
-function waitForClickOnCalculatorButton() {
-  const calculatorButtons = document.querySelectorAll(".calculator-key");
+function waitForClickOnCalculatorButton(app) {
+  const calculatorButtonsArray = app.querySelectorAll(".calculator-key");
 
-  calculatorButtons.forEach((button) => {
+  calculatorButtonsArray.forEach((button) => {
     button.addEventListener("click", () => {
-      handleClickOnCalculatorButton(button);
+      handleClickOnCalculatorButton(button, app);
     });
   });
 }
