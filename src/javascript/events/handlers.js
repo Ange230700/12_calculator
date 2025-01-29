@@ -7,14 +7,14 @@ import {
 import { waitForClickOnCalculatorButton } from "../events/listeners.js";
 
 const handleLoadingOfDomContent = () => {
-  displayApp();
+  const app = displayApp();
 
-  waitForClickOnCalculatorButton();
+  waitForClickOnCalculatorButton(app);
 };
 
-const handleClickOnCalculatorButton = (button) => {
+const handleClickOnCalculatorButton = (button, app) => {
   const key = button.innerHTML.trim();
-  updateResultWithKeyPressed(key);
+  updateResultWithKeyPressed(key, app);
 };
 
 export { handleLoadingOfDomContent, handleClickOnCalculatorButton };

@@ -12,7 +12,7 @@ import {
 } from "../state/management.js";
 import { calculateResult } from "../helpers/utilities.js";
 
-function fillKeysGridSection() {
+function fillKeysGridSection(app) {
   const keys = [
     "9",
     "8",
@@ -32,7 +32,7 @@ function fillKeysGridSection() {
     "+",
   ];
 
-  const keysGrid = document.querySelector("#keys-grid");
+  const keysGrid = app.querySelector("#keys-grid");
 
   const calculatorButtons = keys
     .map((key) => generateCalculatorKey(key))
@@ -47,7 +47,9 @@ function displayApp() {
   const app = document.querySelector("#app");
   app.innerHTML = generateApp();
 
-  fillKeysGridSection();
+  fillKeysGridSection(app);
+
+  return app;
 }
 
 function clearResultArea(resultArea) {
@@ -81,8 +83,8 @@ function updateDisplay() {
   resultArea.innerHTML = textToDisplay;
 }
 
-function updateResultWithKeyPressed(key) {
-  const resultArea = document.querySelector("#result");
+function updateResultWithKeyPressed(key, app) {
+  const resultArea = app.querySelector("#result");
 
   if (globalVariables.has_result && !["+", "-", "×", "÷"].includes(key)) {
     clearResultArea(resultArea);
@@ -91,6 +93,7 @@ function updateResultWithKeyPressed(key) {
   switch (key) {
     case "C":
       clearResultArea(resultArea);
+
       break;
 
     case "+":
