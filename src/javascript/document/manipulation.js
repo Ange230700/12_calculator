@@ -99,7 +99,7 @@ function updateResultWithKeyPressed(key) {
     case "÷":
       if (globalVariables.first_number !== "") {
         chooseOperator(key);
-        resultArea.innerHTML = globalVariables.current_operator;
+        resultArea.innerHTML = ` ${globalVariables.current_operator} `;
       }
       break;
 
