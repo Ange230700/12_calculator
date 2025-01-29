@@ -64,6 +64,28 @@ function printResult(result, resultArea) {
 
 function updateDisplay() {
   const { first_number, second_number, current_operator } = globalVariables;
+
+  const resultArea = document.querySelector("#result");
+
+  let textToDisplay = "";
+
+  if (first_number !== "") {
+    textToDisplay += first_number;
+  }
+
+  if (current_operator) {
+    textToDisplay += current_operator;
+  }
+
+  if (second_number !== "") {
+    textToDisplay += second_number;
+  }
+
+  resultArea.innerHTML = textToDisplay;
+}
+
+function updateResultWithKeyPressed(key) {
+
   const resultArea = document.querySelector("#result");
 
   let textToDisplay = "";
