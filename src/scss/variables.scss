@@ -1,0 +1,18 @@
+// src\scss\variables.scss
+
+$hue: 0;
+$saturation: 0%;
+$lightness: 10%;
+$alpha: 1;
+
+$primary-color-shade-1: hsla($hue, $saturation, $lightness * 1, $alpha);
+$primary-color-shade-2: hsla($hue, $saturation, $lightness * 2, $alpha);
+$primary-color-shade-3: hsla($hue, $saturation, $lightness * 3, $alpha);
+$primary-color-shade-4: hsla($hue, $saturation, $lightness * 4, $alpha);
+$primary-color-shade-5: hsla($hue, $saturation, $lightness * 5, $alpha);
+$primary-color-shade-6: hsla($hue, $saturation, $lightness * 6, $alpha);
+$primary-color-shade-7: hsla($hue, $saturation, $lightness * 7, $alpha);
+$primary-color-shade-8: hsla($hue, $saturation, $lightness * 8, $alpha);
+$primary-color-shade-9: hsla($hue, $saturation, $lightness * 9, $alpha);
+
+$font-family: "Host Grotesk", sans-serif;

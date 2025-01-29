@@ -1,40 +1,120 @@
 // src\javascript\helpers\utilities.js
 
+/* Verifications */
+
 function checkIfNumberIsInteger(number) {
   return Number.isInteger(number);
 }
+
+function checkIfSubtractionIsPossible(firstNumber, secondNumber) {
+  return firstNumber > secondNumber;
+}
+
+function checkIfDivisorIsZero(secondNumber) {
+  return secondNumber === 0;
+}
+
+function checkIfDivisionIsPossible(firstNumber, secondNumber) {
+  return firstNumber >= secondNumber && firstNumber % secondNumber === 0;
+}
+
+/* Errors handling */
 
 function handleNatureOfNumberError(firstNumber, secondNumber) {
   if (
     !checkIfNumberIsInteger(firstNumber) ||
     !checkIfNumberIsInteger(secondNumber)
-  )
-    throw new Error("Please enter integers only");
+  ) {
+    return "Please enter integers only";
+  }
 }
 
-function doSum(firstNumber, secondNumber) {
-  handleNatureOfNumberError(firstNumber, secondNumber);
+function handleSubtractionError(firstNumber, secondNumber) {
+  if (!checkIfSubtractionIsPossible(firstNumber, secondNumber)) {
+    return "This operation is not allowed in the set of natural numbers";
+  }
+}
 
-  return firstNumber + secondNumber;
+function handleDivisionByZeroError(secondNumber) {
+  if (checkIfDivisorIsZero(secondNumber)) {
+    return "Cannot divide by zero";
+  }
+}
+
+function handleDivisionError(firstNumber, secondNumber) {
+  if (!checkIfDivisionIsPossible(firstNumber, secondNumber)) {
+    return "Cannot divide";
+  }
+}
+
+/* Possible operations */
+
+function doSum(firstNumber, secondNumber) {
+  const natureOfNumberError = handleNatureOfNumberError(
+    firstNumber,
+    secondNumber,
+  );
+
+  return natureOfNumberError || `${firstNumber + secondNumber}`;
 }
 
 function doSubtraction(firstNumber, secondNumber) {
-  handleNatureOfNumberError(firstNumber, secondNumber);
+  const natureOfNumberError = handleNatureOfNumberError(
+    firstNumber,
+    secondNumber,
+  );
+  const subtractionError = handleSubtractionError(firstNumber, secondNumber);
 
-  return firstNumber - secondNumber;
+  return (
+    natureOfNumberError || subtractionError || `${firstNumber - secondNumber}`
+  );
 }
 
 function doMultiplication(firstNumber, secondNumber) {
-  handleNatureOfNumberError(firstNumber, secondNumber);
+  const natureOfNumberError = handleNatureOfNumberError(
+    firstNumber,
+    secondNumber,
+  );
 
-  return firstNumber * secondNumber;
+  return natureOfNumberError || `${firstNumber * secondNumber}`;
 }
 
-function doEuclideanDivision(firstNumber, secondNumber) {
-  handleNatureOfNumberError(firstNumber, secondNumber);
+function doDivision(firstNumber, secondNumber) {
+  const natureOfNumberError = handleNatureOfNumberError(
+    firstNumber,
+    secondNumber,
+  );
+  const divisionByZeroError = handleDivisionByZeroError(secondNumber);
+  const divisionError = handleDivisionError(firstNumber, secondNumber);
 
-  return Math.floor(firstNumber / secondNumber);
+  return (
+    natureOfNumberError ||
+    divisionByZeroError ||
+    divisionError ||
+    `${firstNumber / secondNumber}`
+  );
 }
-console.log(doEuclideanDivision(7, 2));
 
-export { doSum, doSubtraction, doMultiplication, doEuclideanDivision };
+function calculateResult(operator, firstNumberString, secondNumberString) {
+  const firstNumberInt = parseInt(firstNumberString, 10);
+  const secondNumberInt = parseInt(secondNumberString, 10);
+
+  switch (operator) {
+    case "+":
+      return doSum(firstNumberInt, secondNumberInt);
+
+    case "-":
+      return doSubtraction(firstNumberInt, secondNumberInt);
+
+    case "×":
+      return doMultiplication(firstNumberInt, secondNumberInt);
+
+    case "÷":
+      return doDivision(firstNumberInt, secondNumberInt);
+
+    default:
+      return "";
+  }
+}
+
+export { calculateResult };
