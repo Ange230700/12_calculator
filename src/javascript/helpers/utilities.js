@@ -25,13 +25,13 @@ function handleNatureOfNumberError(firstNumber, secondNumber) {
     !checkIfNumberIsInteger(firstNumber) ||
     !checkIfNumberIsInteger(secondNumber)
   ) {
-    return "Please enter integers only";
+    return "Integers only (no decimals or letters)";
   }
 }
 
 function handleSubtractionError(firstNumber, secondNumber) {
   if (!checkIfSubtractionIsPossible(firstNumber, secondNumber)) {
-    return "This operation is not allowed in the set of natural numbers";
+    return "Only non-negative results allowed";
   }
 }
 
@@ -43,7 +43,7 @@ function handleDivisionByZeroError(secondNumber) {
 
 function handleDivisionError(firstNumber, secondNumber) {
   if (!checkIfDivisionIsPossible(firstNumber, secondNumber)) {
-    return "Cannot divide";
+    return "Divisor not factor of dividend";
   }
 }
 
