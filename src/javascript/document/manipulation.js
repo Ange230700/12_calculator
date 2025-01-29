@@ -84,27 +84,6 @@ function updateDisplay() {
   resultArea.innerHTML = textToDisplay;
 }
 
-function updateResultWithKeyPressed(key) {
-
-  const resultArea = document.querySelector("#result");
-
-  let textToDisplay = "";
-
-  if (first_number !== "") {
-    textToDisplay += first_number;
-  }
-
-  if (current_operator) {
-    textToDisplay += current_operator;
-  }
-
-  if (second_number !== "") {
-    textToDisplay += second_number;
-  }
-
-  resultArea.innerHTML = textToDisplay;
-}
-
 function updateResultWithKeyPressed(key, app) {
   const resultArea = app.querySelector("#result");
 
