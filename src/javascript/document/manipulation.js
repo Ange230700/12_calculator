@@ -4,12 +4,7 @@ import {
   generateCalculatorKey,
   generateApp,
 } from "../components/functional.js";
-import {
-  globalVariables,
-  resetGlobalVariables,
-  saveResultForFurtherCalculation,
-  chooseOperator,
-} from "../state/management.js";
+import { CalculatorState } from "../state/management.js";
 import { calculateResult } from "../helpers/utilities.js";
 
 function fillKeysGridSection(app) {
@@ -53,17 +48,18 @@ function displayApp() {
 }
 
 function clearResultArea(resultArea) {
-  resetGlobalVariables();
+  CalculatorState.resetGlobalVariables();
   resultArea.innerHTML = "";
 }
 
 function printResult(result, resultArea) {
-  saveResultForFurtherCalculation(result);
+  CalculatorState.saveResultForFurtherCalculation(result);
   resultArea.innerHTML = result;
 }
 
 function updateDisplay() {
-  const { first_number, second_number, current_operator } = globalVariables;
+  const { first_number, second_number, current_operator } =
+    CalculatorState.getState();
 
   const resultArea = document.querySelector("#result");
 
@@ -86,8 +82,10 @@ function updateDisplay() {
 
 function updateResultWithKeyPressed(key, app) {
   const resultArea = app.querySelector("#result");
+  const { first_number, second_number, current_operator, has_result } =
+    CalculatorState.getState();
 
-  if (globalVariables.has_result && !["+", "-", "×", "÷"].includes(key)) {
+  if (has_result && !["+", "-", "×", "÷"].includes(key)) {
     clearResultArea(resultArea);
   }
 
@@ -101,22 +99,18 @@ function updateResultWithKeyPressed(key, app) {
     case "-":
     case "×":
     case "÷":
-      if (globalVariables.first_number !== "") {
-        chooseOperator(key);
-        resultArea.innerHTML = ` ${globalVariables.current_operator} `;
+      if (first_number !== "") {
+        CalculatorState.chooseOperator(key);
+        resultArea.innerHTML = ` ${current_operator} `;
       }
       break;
 
     case "=":
-      if (
-        globalVariables.first_number !== "" &&
-        globalVariables.current_operator &&
-        globalVariables.second_number !== ""
-      ) {
+      if (first_number !== "" && current_operator && second_number !== "") {
         const result = calculateResult(
-          globalVariables.current_operator,
-          globalVariables.first_number,
-          globalVariables.second_number,
+          current_operator,
+          first_number,
+          second_number,
         );
 
         printResult(result, resultArea);
@@ -125,12 +119,12 @@ function updateResultWithKeyPressed(key, app) {
 
     default:
       if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(key)) {
-        if (!globalVariables.current_operator) {
-          globalVariables.first_number += key;
-          resultArea.innerHTML = globalVariables.first_number;
+        if (!current_operator) {
+          CalculatorState.appendToFirstNumber(key);
+          resultArea.innerHTML = first_number;
         } else {
-          globalVariables.second_number += key;
-          resultArea.innerHTML = globalVariables.second_number;
+          CalculatorState.appendToSecondNumber(key);
+          resultArea.innerHTML = second_number;
         }
       }
   }
