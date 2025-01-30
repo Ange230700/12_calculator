@@ -33,7 +33,7 @@ function fillKeysGridSection(app) {
     .map((key) => generateCalculatorKey(key))
     .join("");
 
-  if (keysGrid.innerHTML.includes('<p id="result" class="g-col-12"></p>')) {
+  if (keysGrid.innerHTML.includes('id="result"')) {
     keysGrid.innerHTML += calculatorButtons;
   }
 }
@@ -61,7 +61,7 @@ function updateDisplay() {
   const { first_number, second_number, current_operator } =
     CalculatorState.getState();
 
-  const resultArea = document.querySelector("#result");
+  const resultArea = document.querySelector("#result > p");
 
   let textToDisplay = "";
 
@@ -81,7 +81,7 @@ function updateDisplay() {
 }
 
 function updateResultWithKeyPressed(key, app) {
-  const resultArea = app.querySelector("#result");
+  const resultArea = app.querySelector("#result > p");
   const { first_number, second_number, current_operator, has_result } =
     CalculatorState.getState();
 
